@@ -3,22 +3,30 @@ package ru.alfabank.practice.vstanislavskiy.bankonboarding.model.dto;
 import java.util.List;
 
 public class CalcResponse {
-    private List<ProductDTO> productDTO;
-    private Double sum;
+    private List<ItemDTO> itemList;
+    private Double totalSum;
 
-    public List<ProductDTO> getProductDTO() {
-        return productDTO;
+    public CalcResponse() {
     }
 
-    public void setProductDTO(List<ProductDTO> productDTO) {
-        this.productDTO = productDTO;
+    public CalcResponse(List<ItemDTO> itemList) {
+        this.itemList = itemList;
+        this.totalSum = itemList.stream().mapToDouble(e->e.getTotalPrice()).sum();
     }
 
-    public Double getSum() {
-        return sum;
+    public List<ItemDTO> getItemList() {
+        return itemList;
     }
 
-    public void setSum(Double sum) {
-        this.sum = sum;
+    public void setItemList(List<ItemDTO> itemList) {
+        this.itemList = itemList;
+    }
+
+    public Double getTotalSum() {
+        return totalSum;
+    }
+
+    public void setTotalSum(Double totalSum) {
+        this.totalSum = totalSum;
     }
 }
