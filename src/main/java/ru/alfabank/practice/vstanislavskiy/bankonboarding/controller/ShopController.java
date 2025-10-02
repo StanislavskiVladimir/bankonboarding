@@ -2,10 +2,12 @@ package ru.alfabank.practice.vstanislavskiy.bankonboarding.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import ru.alfabank.practice.vstanislavskiy.bankonboarding.model.dto.*;
 import ru.alfabank.practice.vstanislavskiy.bankonboarding.model.entity.Product;
 import ru.alfabank.practice.vstanislavskiy.bankonboarding.service.ProductService;
+
 
 import java.util.Collections;
 import java.util.List;
@@ -16,7 +18,9 @@ import java.util.Map;
 public class ShopController {
 
     @Autowired
+    @Qualifier("productServiceImplMongo")
     private ProductService productService;
+
 
     @GetMapping("/welcome")
     public Map<String,String> getWelcome(){

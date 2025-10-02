@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface ProductService {
     public List<Product> getProducts();
-    public Optional<Product> getProduct(int id);
+    public Optional<Product> getProduct(String id);
     public CalcResponse getCalculateTotalSum(CalcRequest calcRequest);
 }

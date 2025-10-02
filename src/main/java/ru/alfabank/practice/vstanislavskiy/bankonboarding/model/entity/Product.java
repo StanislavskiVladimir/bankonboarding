@@ -1,30 +1,35 @@
 package ru.alfabank.practice.vstanislavskiy.bankonboarding.model.entity;
 
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Objects;
 
+@Document(collection = "products")
 public class Product {
 
-    int id;
+    @Id
+    private String id;
 
-    String name;
+    private String name;
 
-    double price;
+    private Double price;
 
     public Product() {
     }
 
-    public Product(int id, String name, double price) {
+    public Product(String id, String name, Double price) {
         this.id = id;
         this.name = name;
         this.price = price;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -36,11 +41,11 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -48,7 +53,7 @@ public class Product {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Product product)) return false;
-        return id == product.id && Double.compare(price, product.price) == 0 && Objects.equals(name, product.name);
+        return Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(price, product.price);
     }
 
     @Override
