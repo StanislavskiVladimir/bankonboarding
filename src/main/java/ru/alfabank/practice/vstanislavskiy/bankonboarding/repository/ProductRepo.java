@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface ProductRepo extends MongoRepository<Product, String> {
-    List<Product> findAll();
+    List<Product> findAllByAvailableIsTrue();
     Optional<Product> findById(String id);
     Product save(Product product);
 }

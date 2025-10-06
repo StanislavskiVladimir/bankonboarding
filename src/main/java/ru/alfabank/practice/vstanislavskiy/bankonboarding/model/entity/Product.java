@@ -16,6 +16,8 @@ public class Product {
 
     private Double price;
 
+    private Boolean available;
+
     public Product() {
     }
 
@@ -47,6 +49,14 @@ public class Product {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Boolean getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(Boolean available) {
+        this.available = available;
     }
 
     @Override

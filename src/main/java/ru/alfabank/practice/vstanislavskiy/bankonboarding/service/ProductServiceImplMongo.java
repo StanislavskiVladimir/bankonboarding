@@ -23,7 +23,7 @@ public class ProductServiceImplMongo implements ProductService{
 
     @Override
     public List<Product> getProducts() {
-        return productRepo.findAll();
+        return productRepo.findAllByAvailableIsTrue();
     }
 
     @Override
@@ -39,6 +39,10 @@ public class ProductServiceImplMongo implements ProductService{
                 throw  new ApplicationException("404",
                         "Error 404. Product with ID = " + e.getId() + " does not exist",
                         null, HttpStatus.NOT_FOUND,null);
+            } else if (optionalProduct.get().getAvailable() == null || !optionalProduct.get().getAvailable()) {
+                throw  new ApplicationException("406",
+                        "Error 406. Product with ID = " + e.getId() + " is out of stock",
+                        null, HttpStatus.NOT_ACCEPTABLE,null);
             }
             ItemDTO itemDTO = productMapper.toDTO(optionalProduct.get());
             itemDTO.setNumber(e.getNumber());
