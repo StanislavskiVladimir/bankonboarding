@@ -23,17 +23,17 @@ public class ShopController {
 
 
     @GetMapping("/welcome")
-    public Map<String,String> getWelcome(){
+    public Map<String, String> getWelcome() {
         return Collections.singletonMap("message", "Добро пожаловать в наш чудесный магазин");
     }
 
     @GetMapping("/product")
-    public List<Product> getProducts(){
-        return productService.getProducts() ;
+    public ProductResponse getProducts() {
+        return new ProductResponse(productService.getProducts());
     }
 
     @PostMapping("/calc")
-    public CalcResponse getCalculateTotalSum(@RequestBody CalcRequest calcRequest){
+    public CalcResponse getCalculateTotalSum(@RequestBody CalcRequest calcRequest) {
         return productService.getCalculateTotalSum(calcRequest);
     }
 

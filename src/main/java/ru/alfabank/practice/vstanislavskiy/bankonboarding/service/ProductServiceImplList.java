@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import ru.alfabank.practice.vstanislavskiy.bankonboarding.exception.ApplicationException;
+import ru.alfabank.practice.vstanislavskiy.bankonboarding.exception.NoSuchProductException;
 import ru.alfabank.practice.vstanislavskiy.bankonboarding.mapper.ProductMapper;
 import ru.alfabank.practice.vstanislavskiy.bankonboarding.model.dto.CalcRequest;
 import ru.alfabank.practice.vstanislavskiy.bankonboarding.model.dto.CalcResponse;
@@ -47,9 +48,7 @@ public class ProductServiceImplList implements ProductService{
         {
             Optional<Product> optionalProduct = this.getProduct(e.getId());
             if(optionalProduct.isEmpty()){
-                throw  new ApplicationException("404",
-                        "Error 404. Product with ID = " + e.getId() + " does not exist",
-                        null, HttpStatus.NOT_FOUND,null);
+                throw new NoSuchProductException(e.getId());
             }
             ItemDTO itemDTO = productMapper.toDTO(optionalProduct.get());
             itemDTO.setNumber(e.getNumber());

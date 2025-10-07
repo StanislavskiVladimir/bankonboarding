@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import ru.alfabank.practice.vstanislavskiy.bankonboarding.exception.ApplicationException;
+import ru.alfabank.practice.vstanislavskiy.bankonboarding.exception.NoSuchProductException;
+import ru.alfabank.practice.vstanislavskiy.bankonboarding.exception.ProductOutException;
 import ru.alfabank.practice.vstanislavskiy.bankonboarding.mapper.ProductMapper;
 import ru.alfabank.practice.vstanislavskiy.bankonboarding.model.dto.CalcRequest;
 import ru.alfabank.practice.vstanislavskiy.bankonboarding.model.dto.CalcResponse;
@@ -15,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProductServiceImplMongo implements ProductService{
+public class ProductServiceImplMongo implements ProductService {
     @Autowired
     public ProductRepo productRepo;
     @Autowired
@@ -33,16 +35,12 @@ public class ProductServiceImplMongo implements ProductService{
 
     @Override
     public CalcResponse getCalculateTotalSum(CalcRequest calcRequest) {
-        List<ItemDTO> itemDTOList = calcRequest.getOrderList().stream().map(e ->{
+        List<ItemDTO> itemDTOList = calcRequest.getOrderList().stream().map(e -> {
             Optional<Product> optionalProduct = productRepo.findById(e.getId());
-            if(optionalProduct.isEmpty()){
-                throw  new ApplicationException("404",
-                        "Error 404. Product with ID = " + e.getId() + " does not exist",
-                        null, HttpStatus.NOT_FOUND,null);
-            } else if (optionalProduct.get().getAvailable() == null || !optionalProduct.get().getAvailable()) {
-                throw  new ApplicationException("406",
-                        "Error 406. Product with ID = " + e.getId() + " is out of stock",
-                        null, HttpStatus.NOT_ACCEPTABLE,null);
+            if (optionalProduct.isEmpty()) {
+                throw new NoSuchProductException(e.getId());
+            } else if (!optionalProduct.map(Product::getAvailable).orElse(false)) {
+                throw new ProductOutException(e.getId());
             }
             ItemDTO itemDTO = productMapper.toDTO(optionalProduct.get());
             itemDTO.setNumber(e.getNumber());
