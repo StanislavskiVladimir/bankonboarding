@@ -4,6 +4,7 @@ import java.util.List;
 
 public class CalcRequest {
     private List<OrderDTO> orderList;
+    private List<String> discountList;
 
     public CalcRequest() {
     }
@@ -16,4 +17,11 @@ public class CalcRequest {
         this.orderList = orderList;
     }
 
+    public List<String> getDiscountList() {
+        return discountList;
+    }
+
+    public void setDiscountList(List<String> discountList) {
+        this.discountList = discountList;
+    }
 }

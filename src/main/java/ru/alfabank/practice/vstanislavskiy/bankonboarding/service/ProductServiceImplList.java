@@ -2,9 +2,7 @@ package ru.alfabank.practice.vstanislavskiy.bankonboarding.service;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import ru.alfabank.practice.vstanislavskiy.bankonboarding.exception.ApplicationException;
 import ru.alfabank.practice.vstanislavskiy.bankonboarding.exception.NoSuchProductException;
 import ru.alfabank.practice.vstanislavskiy.bankonboarding.mapper.ProductMapper;
 import ru.alfabank.practice.vstanislavskiy.bankonboarding.model.dto.CalcRequest;
